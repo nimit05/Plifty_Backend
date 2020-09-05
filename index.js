@@ -4,7 +4,7 @@ const session = require("express-session");
 const { db } = require("./db/db");
 const dotenv = require("dotenv");
 dotenv.config();
-//teset
+
 app.use(
   session({
     secret: process.env.session_sec,
