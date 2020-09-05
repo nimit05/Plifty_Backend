@@ -6,20 +6,20 @@ const {CreateUser} = require('../../controllers/user')
 route.post('/' , async(req,res) => {
 
     try{
-        console.log('signup-entered')
         let a = req.body
         const user = await CreateUser(a.f_name , a.l_name , a.username,
             a.gender , a.age , a.type , a.phone_num , a.email , a.password)
 
-            console.log('bchdvcjhdv')
 
         if(user){
             if(a.skills){
                 user.Skills = a.skills;
                 user.save()
             }
-            console.log('user-created')
-            res.send(user)
+            req.session.token = user.token
+            req.session.save()
+            console.log(req.session)
+            res.status(200).send(user)
         }
     }catch(err){
         res.send(err)
