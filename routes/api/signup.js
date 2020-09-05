@@ -1,7 +1,6 @@
 const {Router} = require('express')
 const route = Router()
 const {auth} = require('../../middlewares/auth')
-const { Users } = require('../../db/db')
 const {CreateUser} = require('../../controllers/user')
 
 route.post('/' , async(req,res) => {

@@ -1,5 +1,5 @@
-const {db , Users} = require('../db/db')
-const {getrandomstring} = require('../utils/String')
+const {Users} = require('../db/db')
+const {getrandomstring} = require('../utils/string')
 
 async function CreateUser(FirstName , LastName , Username , Gender , Age , Type , Phone_Num , Email , Password ){
     
@@ -29,7 +29,7 @@ async function CreateUser(FirstName , LastName , Username , Gender , Age , Type 
         }
     }
 
-    console.log('hanjii')
+    console.log(FirstName)
 
     const user = await Users.create({
         FirstName,
@@ -41,10 +41,8 @@ async function CreateUser(FirstName , LastName , Username , Gender , Age , Type 
         Type,
         Phone_Num,
         Email,
-        Password,
-        Skills
-    })
-    console.log(user)
+        Password
+        })
 
     return user;
 }
