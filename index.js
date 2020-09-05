@@ -19,7 +19,7 @@ app.use(
   app.use("/api", require("./routes/api/index").route)
 
 db.sync().then(() => {
-  app.listen(4646 , () => {
+  app.listen(6000 , () => {
       console.log('Server Started')
   })
 })

@@ -16,20 +16,27 @@ const Users = db.define('users' , {
         primaryKey : true,
         autoIncrement: true,
     },
+    FirstName : {
+        type : Sequelize.STRING,
+        allowNull : false
+    },
+    LastName : {
+        type : Sequelize.STRING
+    },
     Username : {
         type : Sequelize.STRING,    
         allowNull : false,
         unique : true
     },
+    Gender : {
+        type : Sequelize.STRING
+    },
+    Age : {
+        type : Sequelize.INTEGER
+    },
     Type : {
         type : Sequelize.STRING,
         allowNull : false
-    },
-    Num_Players : {
-        type : Sequelize.INTEGER
-    },
-    Game_Name : {
-        type : Sequelize.STRING
     },
     Phone_Num : {
         type : Sequelize.STRING
@@ -43,8 +50,14 @@ const Users = db.define('users' , {
     },
     Bio : {
         type : Sequelize.TEXT
+    },
+    Skills : {
+        type : Sequelize.STRING,
+        allowNull : true
+    },
+    token : {
+        type : Sequelize.STRING
     }
-
 })
 
 module.exports = {Users , db}

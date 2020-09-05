@@ -24,7 +24,7 @@ async function auth(req, res, next) {
     }
   } catch (err) {
     throw new Error(err);
-    res.status(500).send({ error: "Internal Error" });
+    // res.status(500).send({ error: "Internal Error" });
   }
 }
 
