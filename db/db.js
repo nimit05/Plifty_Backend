@@ -97,4 +97,16 @@ const ReviewsUsers = db.define('ReviewsUsers' , {
 
 ReviewsUsers.belongsTo(Users)
 
+const Teams = db.define('Teams' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    TeamName : {
+        type : Sequelize.STRING
+
+    }
+})
+
 module.exports = {Users , db , Skills  ,ReviewsUsers}
