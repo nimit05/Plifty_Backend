@@ -57,6 +57,9 @@ const Users = db.define('Users' , {
     },
     token : {
         type : Sequelize.STRING
+    },
+    Exp : {
+        type : Sequelize.TEXT
     }
 })
 

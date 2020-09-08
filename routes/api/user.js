@@ -1,5 +1,6 @@
+const {Router} = require('express')
+const route = Router()
 const {Users , Skills} = require('../../db/db')
-const { route } = require('./signup')
 const {auth} = require('../../middlewares/auth')
 
 route.post('/bio' , auth , async(req,res) => {
@@ -18,10 +19,28 @@ route.post('/skills' , auth , async(req,res) => {
     }
 })
 
-route.post('/exp' , auth , async(req,res) => {
+route.post('/exp', auth ,  async(req,res) => {
     let a = req.body
+    let arr = []
+    if(a.title){
+        arr.push(a.teamName)
+    }else{
+        arr.push('')
+    }
+    if(a.teamName){
+        arr.push(a.tournament)
+    }else{arr.push('')}
+    if(a.des){
+        arr.push(a.des)
+    }else{
+        arr.push('')
+    }
 
-    
+    req.user.Exp = arr.join(';')
+    req.user.save()
+
+    res.status(200).send(req.user.Exp)
+
 })
 
 module.exports = {route}
