@@ -11,7 +11,7 @@ const db = new Sequelize({
 });
 
 const Users = db.define('Users' , {
-    id : {
+    Id : {
         type : Sequelize.INTEGER,
         primaryKey : true,
         autoIncrement: true,
@@ -60,11 +60,15 @@ const Users = db.define('Users' , {
     },
     Exp : {
         type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER,
+        defaultValue : '0'
     }
 })
 
 const Skills = db.define('skills' , {
-    id : {
+    Id : {
         type : Sequelize.INTEGER,
         primaryKey : true,
         autoIncrement: true,
@@ -74,4 +78,23 @@ const Skills = db.define('skills' , {
     }
 })
 
-module.exports = {Users , db , Skills}
+const ReviewsUsers = db.define('ReviewsUsers' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    Body : {
+        type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER
+    },
+    AuthorId : {
+        type : Sequelize.INTEGER
+    }
+}) 
+
+ReviewsUsers.belongsTo(Users)
+
+module.exports = {Users , db , Skills  ,ReviewsUsers}

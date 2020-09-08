@@ -13,7 +13,6 @@ route.post('/' , async(req,res) => {
     const user = await Users.findOne({
         where : {Username : a.username}
     })
-
     if(!user){
         res.status(422).send({error : "User not found with that username"})
     }
