@@ -18,7 +18,7 @@ app.use(
   app.use(exp.json())
   app.use("/api", require("./routes/api/index").route)
 
-db.sync().then(() => {
+db.sync({alter : true}).then(() => {
   app.listen(6000 , () => {
       console.log('Server Started')
   })

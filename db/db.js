@@ -60,4 +60,15 @@ const Users = db.define('Users' , {
     }
 })
 
-module.exports = {Users , db}
+const Skills = db.define('skills' , {
+    id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    skill : {
+        type : Sequelize.STRING
+    }
+})
+
+module.exports = {Users , db , Skills}
