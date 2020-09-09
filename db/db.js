@@ -11,7 +11,7 @@ const db = new Sequelize({
 });
 
 const Users = db.define('Users' , {
-    id : {
+    Id : {
         type : Sequelize.INTEGER,
         primaryKey : true,
         autoIncrement: true,
@@ -57,7 +57,120 @@ const Users = db.define('Users' , {
     },
     token : {
         type : Sequelize.STRING
+    },
+    Exp : {
+        type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER,
+        defaultValue : '0'
+    },
+    Matches : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
     }
 })
 
-module.exports = {Users , db}
+const Skills = db.define('Skills' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    skill : {
+        type : Sequelize.STRING
+    }
+})
+
+const ReviewsUsers = db.define('ReviewsUsers' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    Body : {
+        type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER
+    },
+    AuthorId : {
+        type : Sequelize.INTEGER
+    }
+}) 
+
+ReviewsUsers.belongsTo(Users)
+
+const Teams = db.define('Teams' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    TeamName : {
+        type : Sequelize.STRING
+
+    },
+    TeamField : {
+        type : Sequelize.STRING
+    },
+    TeamPlayers : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    },
+    TeamLeader : {
+        type : Sequelize.INTEGER
+    },
+    Matches : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    }
+})
+
+Teams.belongsTo(Users)
+
+const Tournaments = db.define('Tournaments' ,{
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    TourName : {
+        type : Sequelize.STRING
+    },
+    Venue : {
+        type : Sequelize.STRING
+    },
+    Description : {
+        type : Sequelize.TEXT
+    },
+    Participants : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    },
+    Matches : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    }
+})
+
+Tournaments.belongsTo(Users)
+
+const Matches = db.define('Matches' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    Type : {
+        type : Sequelize.STRING
+    },
+    Challenger : {
+        type : Sequelize.INTEGER
+    },
+    Challengee : {
+        type : Sequelize.INTEGER
+    }
+})
+
+module.exports = {Users , db , Skills  ,ReviewsUsers , Teams  , Tournaments , Matches}

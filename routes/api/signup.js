@@ -2,25 +2,21 @@ const {Router} = require('express')
 const route = Router()
 const {auth} = require('../../middlewares/auth')
 const {CreateUser} = require('../../controllers/user')
+const bcrypt = require('bcrypt')
 
 route.post('/' , async(req,res) => {
 
     try{
         let a = req.body
-        const user = await CreateUser(a.f_name , a.l_name , a.username,
-            a.gender , a.age , a.type , a.phone_num , a.email , a.password)
-
-
-        if(user){
-            if(a.skills){
-                user.Skills = a.skills;
-                user.save()
+        bcrypt.hash(a.password , 12 , async(err ,hash) => {
+            if(!err){
+            const user = await CreateUser(a.f_name , a.l_name , a.username,
+                a.gender , a.age , a.type , a.phone_num , a.email , hash)
+                req.session.token = user.token;
+                req.session.save()
             }
-            req.session.token = user.token
-            req.session.save()
-            console.log(req.session)
-            res.status(200).send(user)
-        }
+    })
+    res.send("signed up successfully")
     }catch(err){
         res.send(err)
     }
