@@ -106,7 +106,16 @@ const Teams = db.define('Teams' , {
     TeamName : {
         type : Sequelize.STRING
 
+    },
+    TeamField : {
+        type : Sequelize.STRING
+    },
+    TeamPlayers : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
     }
 })
 
-module.exports = {Users , db , Skills  ,ReviewsUsers}
+Teams.belongsTo(Users)
+
+module.exports = {Users , db , Skills  ,ReviewsUsers , Teams}
