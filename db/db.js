@@ -11,7 +11,7 @@ const db = new Sequelize({
 });
 
 const Users = db.define('Users' , {
-    id : {
+    Id : {
         type : Sequelize.INTEGER,
         primaryKey : true,
         autoIncrement: true,
@@ -57,7 +57,65 @@ const Users = db.define('Users' , {
     },
     token : {
         type : Sequelize.STRING
+    },
+    Exp : {
+        type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER,
+        defaultValue : '0'
     }
 })
 
-module.exports = {Users , db}
+const Skills = db.define('skills' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    skill : {
+        type : Sequelize.STRING
+    }
+})
+
+const ReviewsUsers = db.define('ReviewsUsers' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    Body : {
+        type : Sequelize.TEXT
+    },
+    Rating : {
+        type : Sequelize.INTEGER
+    },
+    AuthorId : {
+        type : Sequelize.INTEGER
+    }
+}) 
+
+ReviewsUsers.belongsTo(Users)
+
+const Teams = db.define('Teams' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    TeamName : {
+        type : Sequelize.STRING
+
+    },
+    TeamField : {
+        type : Sequelize.STRING
+    },
+    TeamPlayers : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    }
+})
+
+Teams.belongsTo(Users)
+
+module.exports = {Users , db , Skills  ,ReviewsUsers , Teams}

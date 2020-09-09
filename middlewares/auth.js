@@ -2,8 +2,8 @@ const { Users } = require("../db/db");
 
 async function auth(req, res, next) {
   try {
-    let token = false;
-    let authUser = false;
+    let token = null;
+    let authUser = null;
     if (req.session) {
       token = req.session.token;
     }
@@ -20,7 +20,7 @@ async function auth(req, res, next) {
       req.user = authUser;
       next();
     } else {
-      res.status(401).redirect("/home");
+      res.status(401).redirect("/login");
     }
   } catch (err) {
     throw new Error(err);
