@@ -1,12 +1,13 @@
 const {Users} = require('../db/db')
 const {getrandomstring} = require('../utils/string')
 
-async function CreateUser(FirstName , LastName , Username , Gender , Age , Type , Phone_Num , Email , Password ){
-    
-    const username = await Users.findOne({
-        where : {Username}
-    })
+async function CreateUser(FirstName , LastName ,  Type , Phone_Num , Email , Password ){
 
+    if(Phone_Num.length != 10){
+        throw new Error('Ivalid Phone Number');
+    }
+    console.log(Phone_Num)
+    
     const email = await Users.findOne({
         where : {Email}
     })
@@ -17,15 +18,11 @@ async function CreateUser(FirstName , LastName , Username , Gender , Age , Type 
     console.log('checking in function')
 
     if(username || email || phone_Num){
-        console.log('validation error')
         if(phone_Num){
-            return {error : 'phone Number already exists'}
+            throw new Error('Phone number already exists');
         }
         if(email){
-            return {error : 'email already exists'}
-        }
-        if(username){
-            return {error : 'username already exists'}
+            throw new Error('email  already exists');
         }
     }
 
@@ -34,9 +31,6 @@ async function CreateUser(FirstName , LastName , Username , Gender , Age , Type 
     const user = await Users.create({
         FirstName,
         LastName,
-        Username,
-        Gender,
-        Age,
         token : getrandomstring(32),
         Type,
         Phone_Num,

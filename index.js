@@ -19,7 +19,7 @@ app.use(exp.json());
 app.use("/api", require("./routes/api/index").route);
 
 db.sync().then(() => {
-  app.listen(6000, () => {
-    console.log("Server Started");
-  });
-});
+  app.listen(5000 , () => {
+      console.log('Server Started')
+  })
+})

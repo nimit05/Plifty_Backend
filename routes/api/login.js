@@ -1,4 +1,4 @@
-const {Users} = require('../../../backend_plifty/db/db')
+const {Users} = require('../../db/db')
 const {Router} = require('express')
 const route = Router()
 const bcrypt = require('bcrypt')

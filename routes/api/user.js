@@ -2,7 +2,6 @@ const {Router} = require('express')
 const route = Router()
 const {Users , Skills , ReviewsUsers} = require('../../../backend_plifty/db/db')
 const {auth} = require('../../middlewares/auth')
-const { parse } = require('path')
 
 route.post('/bio' , auth , async(req,res) => {
     if(req.body.bio){

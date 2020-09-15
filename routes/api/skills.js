@@ -1,4 +1,4 @@
-const {Skills} = require('../../../backend_plifty/db/db')
+const {Skills} = require('../../db/db')
 const { route } = require('./signup')
 const {auth} = require('../../middlewares/auth')
 
