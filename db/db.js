@@ -25,7 +25,6 @@ const Users = db.define('Users' , {
     },
     Username : {
         type : Sequelize.STRING,    
-        allowNull : false,
         unique : true
     },
     Gender : {
@@ -53,7 +52,6 @@ const Users = db.define('Users' , {
     },
     Skills : {
         type : Sequelize.STRING,
-        allowNull : true
     },
     token : {
         type : Sequelize.STRING
