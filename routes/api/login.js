@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt')
 route.post('/' , async(req,res) => {
     let a = req.body
 
+    console.log('aya bhai')
+
     if(!a.username || !a.password){
         res.status(422).send({error : "no username or password"})
     }
@@ -13,9 +15,10 @@ route.post('/' , async(req,res) => {
     const user = await Users.findOne({
         where : {Username : a.username}
     })
-    if(!user){
-        res.status(422).send({error : "User not found with that username"})
-    }
+    console.log(user)
+    if(user == null){
+        res.send({error : "User not found with that username"})
+    }else{
     bcrypt.compare(a.password , user.Password , async(err , result) => {
        if(result){
            res.send("successfully logged in")
@@ -26,6 +29,7 @@ route.post('/' , async(req,res) => {
            res.status(422).send({error : "Invalid password"})
        }
     })
+}
 })
 
 module.exports = {route}

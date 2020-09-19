@@ -5,9 +5,9 @@ dotenv.config();
 
 const db = new Sequelize({
   dialect: "mysql",
-  database: process.env.database, //accuteDB
-  username: process.env.username,
-  password: process.env.password
+  database: "plifty", 
+  username: "creator",
+  password: "letmein"
 });
 
 const Users = db.define('Users' , {
