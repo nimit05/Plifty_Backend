@@ -1,5 +1,6 @@
 const {Users} = require('../db/db')
 const {getrandomstring} = require('../utils/string')
+const bcrypt = require('bcrypt')
 
 async function CreateUser(FirstName , LastName ,  Type , Phone_Num , Email , Password ){
     console.log('in controllers')
@@ -43,4 +44,32 @@ async function CreateUser(FirstName , LastName ,  Type , Phone_Num , Email , Pas
     return user;
 }
 
-module.exports = {CreateUser}
+
+async function UserLogin(Email , Password){
+
+    if(!Email || !Password){
+        throw new Error('no username or password')
+    }
+
+    const user = await Users.findOne({
+        where : {Email}
+    })
+
+    if(!user){
+        throw new Error("User not found with that username")
+    }
+
+    console.log(user.Password)
+
+
+    const match = await bcrypt.compare(Password , user.Password);
+    if(match){
+        return user
+    }else{
+        throw new Error('invalid password')
+    }
+   
+
+}
+
+module.exports = {CreateUser , UserLogin}

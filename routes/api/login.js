@@ -1,31 +1,35 @@
 const {Users} = require('../../db/db')
 const {Router} = require('express')
 const route = Router()
-const bcrypt = require('bcrypt')
+const {UserLogin} = require('../../controllers/user')
+const {auth} = require('../../middlewares/auth')
 
 route.post('/' , async(req,res) => {
-    let a = req.body
-
-    if(!a.username || !a.password){
-        res.status(422).send({error : "no username or password"})
+    
+    try {
+        let a = req.body
+        try {
+            const user = await UserLogin(a.username , a.password)
+            req.session.token = user.token;
+            req.session.save()
+            console.log(req.session)
+            res.send(user)
+        } catch (err) {
+           res.send({err :err.message})
+        }
+        
+    } catch (err) {
+        res.send(err.message)
     }
-
-    const user = await Users.findOne({
-        where : {Username : a.username}
-    })
-    if(!user){
-        res.status(422).send({error : "User not found with that username"})
-    }
-    bcrypt.compare(a.password , user.Password , async(err , result) => {
-       if(result){
-           res.send("successfully logged in")
-           req.session.token = user.token;
-           req.session.save()
-           console.log(req.session)
-       }else{
-           res.status(422).send({error : "Invalid password"})
-       }
-    })
+    
 })
+
+route.get('/session' , async(req,res) => {
+    if(req.session.token){
+      res.send({token : req.session.token})
+    }else{
+      res.send({err : 'error occured'})
+    }
+  })
 
 module.exports = {route}
