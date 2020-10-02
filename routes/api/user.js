@@ -1,7 +1,8 @@
 const {Router} = require('express')
 const route = Router()
-const {Users , Skills , ReviewsUsers} = require('../../../backend_plifty/db/db')
+// const {Users , Skills , ReviewsUsers} = require('../../../backend_plifty/db/db')
 const {auth} = require('../../middlewares/auth')
+const {Users} = require('../../models/users')
 
 route.post('/bio' , auth , async(req,res) => {
     if(req.body.bio){
@@ -96,5 +97,10 @@ route.post('/review'  ,auth , async(req,res) => {
     }
     
 })
+
+route.get('/getSender' , async(req,res) => {
+    const user = await Users.find({_id : req.query.id})
+    res.send(user) 
+} )
 
 module.exports = {route}

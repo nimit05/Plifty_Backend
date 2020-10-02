@@ -1,35 +1,48 @@
 const {Users} = require('../../db/db')
 const {Router} = require('express')
 const route = Router()
-const bcrypt = require('bcrypt')
+const {UserLogin} = require('../../controllers/user')
+const {auth} = require('../../middlewares/auth')
 
 route.post('/' , async(req,res) => {
-    let a = req.body
-
-    console.log('aya bhai')
-
-    if(!a.username || !a.password){
-        res.status(422).send({error : "no username or password"})
+    
+    try {
+        let a = req.body
+        try {
+            const user = await UserLogin(a.username , a.password)
+            req.session.token = user.token;
+            req.session.save()
+            console.log(req.session)
+            res.send(user)
+        } catch (error) {
+          console.log(error.message)
+           res.send({error :error.message})
+        }
+        
+    } catch (error) {
+        res.send(error.message)
     }
 
-    const user = await Users.findOne({
-        where : {Username : a.username}
-    })
-    console.log(user)
-    if(user == null){
-        res.send({error : "User not found with that username"})
-    }else{
-    bcrypt.compare(a.password , user.Password , async(err , result) => {
-       if(result){
-           res.send("successfully logged in")
-           req.session.token = user.token;
-           req.session.save()
-           console.log(req.session)
-       }else{
-           res.status(422).send({error : "Invalid password"})
-       }
-    })
-}
+    // try {
+    //   let a = req.body
+    //   const user = await Users.findOne({Email : a.username} ,function(err, result) {
+    //     if (err) throw err;
+    //     console.log(result) 
+    //   })
+
+    //   res.send(user)
+    // } catch (error) {
+    //   res.send({error : error.message})
+    // }
+    
 })
+
+route.get('/session' , async(req,res) => {
+    if(req.session.token){
+      res.send({token : req.session.token})
+    }else{
+      res.send({err : 'error occured'})
+    }
+  })
 
 module.exports = {route}

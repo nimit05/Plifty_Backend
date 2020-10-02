@@ -171,4 +171,32 @@ const Matches = db.define('Matches' , {
     }
 })
 
-module.exports = {Users , db , Skills  ,ReviewsUsers , Teams  , Tournaments , Matches}
+const ChatRoom  = db.define('ChatRoom' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    parti : {
+        type : Sequelize.INTEGER
+    },
+    parti_two : {
+        type : Sequelize.INTEGER
+    }
+})
+
+const Chats = db.define('Chats' , {
+    Id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement: true,
+    },
+    Message : {
+        type : Sequelize.TEXT
+    }
+})
+
+Chats.belongsTo(Users)
+Chats.belongsTo(ChatRoom)
+
+module.exports = {Users , db , Skills  ,ReviewsUsers , Teams  , Tournaments , Matches , Chats , ChatRoom }
