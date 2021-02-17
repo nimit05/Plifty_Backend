@@ -7,6 +7,7 @@ route.use('/skills' , require('./skills').route)
 route.use('/login' , require('./login').route)
 route.use('/chat' , require('./chat').route)
 route.use('/users' , require('./users').route)
-
+route.use('/notifications' , require('./notification').route)
+route.use('/tourna' , require('./tournament').route)
 
 module.exports = {route}

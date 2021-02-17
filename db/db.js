@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 
 const dotenv = require("dotenv");
+const { BOOLEAN } = require('sequelize');
 dotenv.config();
 
 const db = new Sequelize({
@@ -66,6 +67,9 @@ const Users = db.define('Users' , {
     Matches : {
         type : Sequelize.TEXT,
         defaultValue : ''
+    },
+    Notification : {
+        type : Sequelize.TEXT
     }
 })
 
@@ -122,6 +126,10 @@ const Teams = db.define('Teams' , {
     Matches : {
         type : Sequelize.TEXT,
         defaultValue : ''
+    },
+    Tourna_Played : {
+        type : Sequelize.INTEGER,
+        defaultValue: 0
     }
 })
 
@@ -149,6 +157,10 @@ const Tournaments = db.define('Tournaments' ,{
     Matches : {
         type : Sequelize.TEXT,
         defaultValue : ''
+    },
+    Active : {
+        type : Sequelize.BOOLEAN,
+        defaultValue : true
     }
 })
 
