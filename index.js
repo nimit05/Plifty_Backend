@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const {Chats , ChatRoom , Users} = require('./db/db');
 const { Sequelize } = require("sequelize");
+const path = require('path')
 
 app.use(
   session({
@@ -21,6 +22,7 @@ const io = require('socket.io')(server)
 
 app.use(exp.urlencoded({ extended: true }));
 app.use(exp.json());
+app.use(exp.static(path.join(__dirname, "build")));
 app.use("/api", require("./routes/api/index").route);
 
 
@@ -105,10 +107,14 @@ io.on('connection' , socket => {
   
 })
 
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
+const port = process.env.port || 6878
 
 db.sync().then(() => {
-  server.listen(6878 , () => {
+  server.listen(port , () => {
       console.log('Server Started')
   })
 })

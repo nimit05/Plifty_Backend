@@ -57,14 +57,12 @@ const Users = db.define('Users' , {
     token : {
         type : Sequelize.STRING
     },
-    Exp : {
-        type : Sequelize.TEXT
-    },
-    Rating : {
-        type : Sequelize.INTEGER,
-        defaultValue : '0'
-    },
+  
     Matches : {
+        type : Sequelize.TEXT,
+        defaultValue : ''
+    },
+    Teams : {
         type : Sequelize.TEXT,
         defaultValue : ''
     },
@@ -128,8 +126,15 @@ const Teams = db.define('Teams' , {
         defaultValue : ''
     },
     Tourna_Played : {
+        type : Sequelize.TEXT,
+        defaultValue: ''
+    },
+    TeamSize : {
         type : Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue : 0
+    },
+    TeamCode : {
+        type : Sequelize.STRING
     }
 })
 
@@ -161,6 +166,10 @@ const Tournaments = db.define('Tournaments' ,{
     Active : {
         type : Sequelize.BOOLEAN,
         defaultValue : true
+    },
+    EntryFee : {
+        type : Sequelize.INTEGER,
+        defaultValue : 0
     }
 })
 
