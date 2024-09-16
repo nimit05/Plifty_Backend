@@ -1,5 +1,5 @@
 const alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//test
+
 function getrandomstring(length) {
   let buff = [];
   while (buff.length < length) {
